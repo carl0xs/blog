@@ -90,6 +90,7 @@ defmodule BlogWeb do
       # Common modules used in templates
       alias Phoenix.LiveView.JS
       alias BlogWeb.Layouts
+      alias BlogWeb.Posts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
