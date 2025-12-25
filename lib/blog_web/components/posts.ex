@@ -5,10 +5,29 @@ defmodule BlogWeb.Posts do
   """
   use BlogWeb, :html
 
-  def recents(assigns) do 
+  def recents(assigns) do
+    posts =
+      "priv/posts"
+      |> File.ls!()
+      |> Enum.map(&Path.join("priv/posts", &1))
+      |> Enum.map(fn path -> {path, File.stat!(path)} end)
+      |> Enum.sort_by(fn {_, stat} -> stat.mtime end, :desc)
+      |> Enum.take(3)
+
+    assigns = assign(assigns, :posts, posts)
+
     ~H"""
-      <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      </div>
+    <div class="mt-4">
+      <ul>
+        <%= for {path, _} <- @posts do %>
+          <li>
+            <a href={"/posts/#{Path.basename(path, ".md")}"} class="underline decoration-solid text-blue">
+              <%= Path.basename(path, ".md") |> String.replace("-", " ") |> String.capitalize() %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
     """
   end
 end
