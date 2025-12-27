@@ -1,4 +1,4 @@
-# Blog
+# My personal Blog
 
 To start your Phoenix server:
 
