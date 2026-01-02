@@ -21,7 +21,7 @@ defmodule Blog.MixProject do
   def application do
     [
       mod: {Blog.Application, []},
-      extra_applications: [:logger, :runtime_tools, :earmark]
+      extra_applications: [:logger, :runtime_tools, :earmark, :yamerl]
     ]
   end
 
@@ -63,7 +63,8 @@ defmodule Blog.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:earmark, "~> 1.4"}
+      {:yamerl, "~> 0.8"},
+      {:earmark, "~> 1.4.3"}
     ]
   end
 

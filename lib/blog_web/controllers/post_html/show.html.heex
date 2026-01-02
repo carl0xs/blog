@@ -1,4 +1,16 @@
-<h1>My Post</h1>
-<div class="prose">
-  <%= raw @post_html %>
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="py-8">
+    <h1 class="text-4xl font-bold text-center"><%= @post.title %></h1>
+    <div class="text-center mt-2">
+      <p class="text-gray-500"><%= @post.date %></p>
+      <div class="mt-2">
+        <%= for tag <- @post.tags do %>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"><%= tag %></span>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-8 prose lg:prose-xl max-w-none">
+      <%= raw @post.html %>
+    </div>
+  </div>
 </div>

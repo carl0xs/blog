@@ -5,24 +5,23 @@ defmodule BlogWeb.Posts do
   """
   use BlogWeb, :html
 
+  alias Blog.Post
+
   def recents(assigns) do
     posts =
-      "priv/posts"
-      |> File.ls!()
-      |> Enum.map(&Path.join("priv/posts", &1))
-      |> Enum.map(fn path -> {path, File.stat!(path)} end)
-      |> Enum.sort_by(fn {_, stat} -> stat.mtime end, :desc)
+      Post.all()
+      |> Enum.sort_by(&Date.from_iso8601!(&1.date), :desc)
       |> Enum.take(3)
 
     assigns = assign(assigns, :posts, posts)
 
     ~H"""
-    <div class="mt-4">
+    <div>
       <ul>
-        <%= for {path, _} <- @posts do %>
+        <%= for post <- @posts do %>
           <li>
-            <a href={"/posts/#{Path.basename(path, ".md")}"} class="underline decoration-solid text-blue">
-              <%= Path.basename(path, ".md") |> String.replace("-", " ") |> String.capitalize() %>
+            <a href={~p"/posts/#{post.slug}"} class="underline decoration-solid text-blue">
+              <%= post.title %>
             </a>
           </li>
         <% end %>
