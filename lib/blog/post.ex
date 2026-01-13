@@ -1,5 +1,5 @@
 defmodule Blog.Post do
-  @derive {Jason.Encoder, only: [:slug, :title, :date, :tags, :html]}
+  @derive {Jason.Encoder, only: [:slug, :title, :tags, :html]}
   defstruct [:slug, :title, :date, :tags, :html]
 
   def all, do: all("priv/posts")
@@ -26,14 +26,22 @@ defmodule Blog.Post do
 
         if length(parts) == 2 do
           [front_matter, markdown] = parts
-          meta = :yamerl_util.string(front_matter) |> hd |> Enum.into(%{})
+          meta = :yamerl_constr.string(front_matter) |> hd |> Enum.into(%{})
 
-          {:ok, html} = Earmark.as_html(markdown)
+          {:ok, html, _warnings} = Earmark.as_html(markdown)
+
+          date =
+            with date_str when is_binary(date_str) <- meta["date"],
+                 {:ok, date} <- Date.from_iso8601(date_str) do
+              date
+            else
+              _ -> nil
+            end
 
           %Blog.Post{
             slug: slug,
             title: meta["title"],
-            date: meta["date"],
+            date: date,
             tags: meta["tags"] || [],
             html: html
           }

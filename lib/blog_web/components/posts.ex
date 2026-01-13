@@ -10,7 +10,8 @@ defmodule BlogWeb.Posts do
   def recents(assigns) do
     posts =
       Post.all()
-      |> Enum.sort_by(&Date.from_iso8601!(&1.date), :desc)
+      |> Enum.filter(&(&1.date != nil))
+      |> Enum.sort_by(&(&1.date), :desc)
       |> Enum.take(3)
 
     assigns = assign(assigns, :posts, posts)
