@@ -13,6 +13,7 @@ defmodule BlogWeb.PostController do
 
       post ->
         conn
+        |> assign(:page_title, post.title)
         |> put_view(html: BlogWeb.PostHTML)
         |> render("show.html", post: post)
     end

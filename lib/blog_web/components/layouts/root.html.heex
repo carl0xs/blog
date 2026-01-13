@@ -4,8 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Carl0sx">
-      {assigns[:page_title]}
+    <.live_title >
+        <%= if assigns[:page_title] do
+          to_string(assigns[:page_title]) <> " | Carl0sx"
+        else
+          "Carl0sx"
+        end %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>

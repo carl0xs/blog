@@ -1,9 +1,13 @@
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+  <br />
+  <a href={~p"/"} class="underline decoration-solid text-info">
+      Go back
+  </a>
   <div class="py-8">
-    <h1 class="text-4xl font-bold text-center"><%= @post.title %></h1>
-    <div class="text-center mt-2">
-      <p class="text-gray-500">
-        Date: <time datetime={@post.date}><%= Date.to_string(@post.date) %></time>
+    <h1 class="text-4xl font-bold"><%= @post.title %></h1>
+    <div class="mt-2">
+      <p class="text-sm">
+        <time datetime={@post.date}><%= Date.to_string(@post.date) %></time>
       </p>
     </div>
     <div class="mt-8 prose lg:prose-xl max-w-none">

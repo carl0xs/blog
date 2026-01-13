@@ -23,7 +23,7 @@ defmodule BlogWeb.Posts do
         <%= for post <- @posts do %>
           <li>
             <a href={~p"/posts/#{post.slug}"} class="underline decoration-solid text-info">
-              <%= post.title %>
+              <%= "#{post.date} - #{post.title}"  %>
             </a>
           </li>
         <% end %>
