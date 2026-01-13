@@ -5,12 +5,13 @@ defmodule BlogWeb.Posts do
   """
   use BlogWeb, :html
 
-  alias Blog.Post
+  embed_templates "layouts/*"
+
+  attr :any, :any, default: %{}
 
   def recents(assigns) do
     posts =
-      Post.all()
-      |> Enum.filter(&(&1.date != nil))
+      Blog.Post.all()
       |> Enum.sort_by(&(&1.date), :desc)
       |> Enum.take(3)
 
@@ -21,13 +22,13 @@ defmodule BlogWeb.Posts do
       <ul>
         <%= for post <- @posts do %>
           <li>
-            <a href={~p"/posts/#{post.slug}"} class="underline decoration-solid text-blue">
+            <a href={~p"/posts/#{post.slug}"} class="underline decoration-solid text-info">
               <%= post.title %>
             </a>
           </li>
         <% end %>
       </ul>
     </div>
-    """
+    """  
   end
 end
