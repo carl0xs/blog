@@ -1,0 +1,17 @@
+<div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+  <br />
+  <a href={~p"/"} class="underline decoration-solid text-info">
+    Go back
+  </a>
+  <div class="py-8">
+    <ul>
+      <%= for bookmark <- @bookmarks do %>
+        <li>
+          <a href={~p"/bookmarks/#{bookmark.slug}"} class="underline decoration-solid text-info">
+            {"#{bookmark.date} - #{bookmark.title}"}
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
