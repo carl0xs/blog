@@ -158,6 +158,7 @@ defmodule BlogWeb.Layouts do
       <nav class="grid grid-flow-col gap-4">
         <a href={~p"/posts"} class="link link-hover">All Posts</a>
         <a href="https://github.com/carl0sx" class="link link-hover">Github</a>
+        <a href="mailto:carlos.labs@proton.me" class="link link-hover">Email</a>
         <p>Copyright © {Date.utc_today().year} - All right reserved by Carl0sx</p>
       </nav>
     </footer>
