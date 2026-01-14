@@ -58,4 +58,4 @@ defmodule Blog.Post do
   end
 
   defp parse_date(_), do: nil
-  end
+end

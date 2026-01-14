@@ -1,0 +1,17 @@
+<div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+  <br />
+  <a href={~p"/"} class="underline decoration-solid text-info">
+    Go back
+  </a>
+  <div class="py-8">
+    <ul>
+      <%= for post <- @posts do %>
+        <li>
+          <a href={~p"/posts/#{post.slug}"} class="underline decoration-solid text-info">
+            {"#{post.date} - #{post.title}"}
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

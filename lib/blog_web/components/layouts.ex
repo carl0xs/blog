@@ -151,4 +151,16 @@ defmodule BlogWeb.Layouts do
     </div>
     """
   end
+
+  def footer(assigns) do
+    ~H"""
+    <footer class="footer footer-center bg-base-200 text-base-content">
+      <nav class="grid grid-flow-col gap-4">
+        <a href={~p"/posts"} class="link link-hover">All Posts</a>
+        <a href="https://github.com/carl0sx" class="link link-hover">Github</a>
+        <p>Copyright © {Date.utc_today().year} - All right reserved by Carl0sx</p>
+      </nav>
+    </footer>
+    """
+  end
 end

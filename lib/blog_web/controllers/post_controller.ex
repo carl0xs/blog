@@ -3,6 +3,14 @@ defmodule BlogWeb.PostController do
 
   alias Blog.Post
 
+  def index(conn, _assings) do 
+    posts = Post.all()
+
+    conn
+    |> put_view(html: BlogWeb.PostsHTML)
+    |> render("index.html", posts: posts)
+  end
+
   def show(conn, %{"slug" => slug}) do
     case Post.find(slug) do
       nil ->

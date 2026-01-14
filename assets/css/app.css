@@ -99,6 +99,11 @@
   --noise: 0;
 }
 
+pre code {
+  background: none;
+  padding: 0;
+}
+
 /* Add variants based on LiveView classes */
 @custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
 @custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);

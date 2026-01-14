@@ -6,6 +6,7 @@ defmodule Blog.PostTest do
     tmp_dir = Path.join(System.tmp_dir!(), "blog_posts_test")
     File.mkdir_p!(tmp_dir)
     post_path = Path.join(tmp_dir, "hello-world.md")
+
     File.write!(post_path, """
     ---
     title: Hello World
