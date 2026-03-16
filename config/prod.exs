@@ -7,9 +7,7 @@ import Config
 # before starting your production server.
 config :blog, BlogWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
-# Force using SSL in production. This also sets the "strict-security-transport" header,
-# also known as HSTS. `:force_ssl` is required to be set at compile-time.
-config :blog, BlogWeb.Endpoint, force_ssl: [rewrite_on: [:x_forwarded_proto]]
+# SSL is handled by Cloudflare Tunnel — no need for force_ssl here.
 
 # Configure Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Req
