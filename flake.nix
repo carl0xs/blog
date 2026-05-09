@@ -7,10 +7,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    {
-      nixosModules.default = import ./nix/module.nix self;
-    }
-    // flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
@@ -25,30 +22,35 @@
             pname = "blog-deps";
             version = "0.1.0";
             src = ./.;
-            # Rode `nix build` uma vez — o erro mostra o hash correto.
-            # Cole aqui o sha256 real.
-            sha256 = pkgs.lib.fakeSha256;
+            sha256 = "sha256-f5eYiS98laTyXod/ZpTjeKVv0b9AxAYfh2o9qlrCAIg=";
           };
 
-          # Assets: roda esbuild e tailwind direto, sem depender dos hex wrappers
           postBuild = ''
             pushd assets
-            NODE_PATH="$MIX_DEPS_PATH" \
+
+            NODE_PATH="$PWD/../deps:$PWD/../_build/prod" \
             ${pkgs.esbuild}/bin/esbuild js/app.js \
               --bundle --target=es2022 \
               --outdir=../priv/static/assets/js \
               --external:/fonts/* --external:/images/* \
               --alias:@=. \
               --minify
+
             popd
 
-            ${pkgs.tailwindcss}/bin/tailwindcss \
+            ${pkgs.tailwindcss_4}/bin/tailwindcss \
               --input=assets/css/app.css \
               --output=priv/static/assets/css/app.css \
               --minify
 
             mix phx.digest
+
           '';
+          postInstall = ''
+            wrapProgram $out/bin/blog --set RELEASE_COOKIE "blog-cookie"
+          '';
+
+          nativeBuildInputs = with pkgs; [ esbuild tailwindcss_4 makeWrapper ];
         };
       in
       {
