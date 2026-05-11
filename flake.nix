@@ -6,10 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {inherit system;};
         beamPackages = pkgs.beam.packagesWith pkgs.beam.interpreters.erlang;
 
         blog = beamPackages.mixRelease {
@@ -50,10 +54,9 @@
             wrapProgram $out/bin/blog --set RELEASE_COOKIE "blog-cookie"
           '';
 
-          nativeBuildInputs = with pkgs; [ esbuild tailwindcss_4 makeWrapper ];
+          nativeBuildInputs = with pkgs; [esbuild tailwindcss_4 makeWrapper];
         };
-      in
-      {
+      in {
         packages.default = blog;
 
         devShells.default = pkgs.mkShell {
@@ -61,10 +64,12 @@
             erlang
             elixir
             elixir-ls
+            tailwindcss_4
           ];
 
           shellHook = ''
             echo "$(elixir --version | grep "Elixir")"
+            export TAILWINDCSS_PATH="${pkgs.lib.getExe pkgs.tailwindcss_4}"
           '';
         };
       }

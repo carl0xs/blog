@@ -49,7 +49,8 @@ config :tailwind,
       --output=priv/static/assets/css/app.css
     ),
     cd: Path.expand("..", __DIR__)
-  ]
+  ],
+ path: System.get_env("TAILWINDCSS_PATH")
 
 # Configure Elixir's Logger
 config :logger, :default_formatter,
