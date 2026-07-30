@@ -51,7 +51,6 @@ defmodule Blog.MixProject do
       {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.2.0",
-       sparse: "optimized",
        app: false,
        compile: false,
        depth: 1,

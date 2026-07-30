@@ -26,7 +26,8 @@
             pname = "blog-deps";
             version = "0.1.0";
             src = ./.;
-            sha256 = "sha256-f5eYiS98laTyXod/ZpTjeKVv0b9AxAYfh2o9qlrCAIg=";
+            sha256 = "sha256-L1JvBLBmK+LEUhl8tWNAvKePRdvQD8jSGB5CYDrndf4=";
+  					fetchSubmodules = true;
           };
 
           postBuild = ''
@@ -57,7 +58,10 @@
           nativeBuildInputs = with pkgs; [esbuild tailwindcss_4 makeWrapper];
         };
       in {
-        packages.default = blog;
+				packages = {
+					default = blog;
+					blog = blog;
+				};
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
